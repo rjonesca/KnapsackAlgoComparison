@@ -6,7 +6,7 @@ import TestRunner.Result;
 public class TDKnapsack implements ITestable {
 
     @Override
-    public Result run() {
+    public Result knapsack(int[] values, int[] weights, int w, int n) {
         return new Result();
     }
     

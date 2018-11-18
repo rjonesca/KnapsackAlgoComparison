@@ -26,10 +26,15 @@ public class TestRunner {
     public static void run() {
         Result result;
         
+        //Dummy data
+        int[] values = new int[10];
+        int[] weights = new int[10] ;
+        int w = 4, n = 4;
+        
         for (int i = 0; i < TESTS.size(); i++) {
             for (int j = 0; j < NUM_OF_RUNS; j++) {
                 long startTime = System.currentTimeMillis();
-                result = TESTS.get(i).run();
+                result = TESTS.get(i).knapsack(values, weights, w, n);
                 long endTime = System.currentTimeMillis();
                 result.setAlgoName(TESTS.get(i).toString());
                 result.setRun(j + 1);

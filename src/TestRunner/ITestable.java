@@ -1,7 +1,5 @@
 package TestRunner;
 
-import TestRunner.Result;
-
 public interface ITestable {
-    public Result run();
+    public Result knapsack(int[] values, int[] weights, int w, int n);
 }
