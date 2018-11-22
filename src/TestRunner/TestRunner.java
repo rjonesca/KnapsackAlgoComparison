@@ -36,10 +36,11 @@ public class TestRunner {
                 long startTime = System.currentTimeMillis();
                 result = TESTS.get(i).knapsack(values, weights, w, n);
                 long endTime = System.currentTimeMillis();
-                result.setAlgoName(TESTS.get(i).toString());
-                result.setRun(j + 1);
-                result.setValue(0);
-                result.setDuration(endTime - startTime);
+                result.setAlgorithmName(TESTS.get(i).toString());
+                result.setTestNumber(j + 1);
+                result.setNumOfItems(n);
+                result.setKnapsackCapacity(w);
+                result.setTestDuration(endTime - startTime);
                 RESULTS.add(result);
             }
         }
@@ -47,10 +48,11 @@ public class TestRunner {
     
     public static void report() {
         for (Result result : RESULTS) {
-            System.out.println("Algorithm: " + result.getAlgoName());
-            System.out.println("Run #: " + result.getRun());
-            System.out.println("Time to run: " + result.getDuration());
-            System.out.println("Result: " + result.getValue());
+            System.out.println("Algorithm: " + result.getAlgorithmName());
+            System.out.println("Test #: " + result.getTestNumber());
+            System.out.println("Time to run: " + result.getTestDuration());
+            System.out.println("Selected Items Weight: " + result.getSelectedItemsWeight());
+            System.out.println("Selected Items Value: " + result.getSelectedItemsValue());
             System.out.println("");
         }
     }

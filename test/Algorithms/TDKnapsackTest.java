@@ -22,7 +22,7 @@ public class TDKnapsackTest {
     @Test
     public void testKnapsack() {
         Result result = td.knapsack(new int[4], new int[4], 0, 0);
-        assertNotNull(result.getValue());
+        assertNotEquals(result.getSelectedItemsValue(), 0);
     }
 
     /**

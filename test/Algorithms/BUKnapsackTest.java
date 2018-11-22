@@ -22,7 +22,7 @@ public class BUKnapsackTest {
     @Test
     public void testKnapsack() {
         Result result = bf.knapsack(new int[4], new int[4], 0, 0);
-        assertNotNull(result.getValue());
+        assertNotEquals(result.getSelectedItemsValue(), 0);
     }
 
     /**
