@@ -33,7 +33,7 @@ public class BFKnapsack implements ITestable {
                temp_item_list.clear();
            }
            
-           System.out.println(i);
+           //System.out.println(i);
         }
         
         return result;
