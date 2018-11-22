@@ -30,7 +30,10 @@ public class BFKnapsack implements ITestable {
                result.setSelectedItemsList(temp_item_list);
                result.setSelectedItemsWeight(temp_weight_sum);
                result.setSelectedItemsValue(max_value);
-           }   
+               temp_item_list.clear();
+           }
+           
+           System.out.println(i);
         }
         
         return result;

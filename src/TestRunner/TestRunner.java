@@ -27,9 +27,9 @@ public class TestRunner {
         Result result;
         
         //Dummy data
-        int[] values = new int[10];
-        int[] weights = new int[10] ;
-        int w = 4, n = 4;
+        int[] values = {4, 34, 5, 8, 2, 23, 58, 9, 65, 1};
+        int[] weights = {100, 50, 20, 43, 56, 87, 8, 54, 45, 76};
+        int w = 50, n = 10;
         
         for (int i = 0; i < TESTS.size(); i++) {
             for (int j = 0; j < NUM_OF_RUNS; j++) {
@@ -51,8 +51,11 @@ public class TestRunner {
             System.out.println("Algorithm: " + result.getAlgorithmName());
             System.out.println("Test #: " + result.getTestNumber());
             System.out.println("Time to run: " + result.getTestDuration());
+            System.out.println("Number of items to choose from: " + result.getNumOfItems());
+            System.out.println("Knapsack Capacity: " + result.getKnapsackCapacity());
             System.out.println("Selected Items Weight: " + result.getSelectedItemsWeight());
             System.out.println("Selected Items Value: " + result.getSelectedItemsValue());
+            System.out.println("Selected Items: " + result.getSelectedItemsList());
             System.out.println("");
         }
     }
