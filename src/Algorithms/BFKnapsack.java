@@ -21,19 +21,18 @@ public class BFKnapsack implements ITestable {
                if (((i >> j) & 1) == 1) {
                    temp_weight_sum += weights[j];
                    temp_value_sum += values[j];
-                   temp_item_list.add(j);
+                   temp_item_list.add(j+1);
                }
            }
            
            if (temp_weight_sum <= w && temp_value_sum > max_value) {
                max_value = temp_value_sum;
-               result.setSelectedItemsList(temp_item_list);
+               result.setSelectedItemsList((ArrayList<Integer>)temp_item_list.clone());
                result.setSelectedItemsWeight(temp_weight_sum);
                result.setSelectedItemsValue(max_value);
-               temp_item_list.clear();
            }
            
-           //System.out.println(i);
+            temp_item_list.clear();
         }
         
         return result;

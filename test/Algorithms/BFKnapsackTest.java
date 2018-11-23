@@ -3,8 +3,8 @@ package Algorithms;
 import TestRunner.Result;
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class BFKnapsackTest {
@@ -104,8 +104,8 @@ public class BFKnapsackTest {
         int[] weights = {100, 50, 5, 43, 56, 87, 8, 54, 45, 76};
         int w = 50, n = 10;
         List<Integer> items = new ArrayList<>();
-        items.add(9);
         items.add(3);
+        items.add(9);
         
         Result result = bf.knapsack(values, weights, w, n);
         assertEquals(items, result.getSelectedItemsList());
