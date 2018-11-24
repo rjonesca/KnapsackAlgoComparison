@@ -3,6 +3,8 @@ package TestRunner;
 import Algorithms.BFKnapsack;
 import Algorithms.BUKnapsack;
 import Algorithms.TDKnapsack;
+import java.io.FileWriter;
+import java.io.IOException;
 import static java.lang.Integer.MAX_VALUE;
 import java.util.ArrayList;
 import java.util.List;
@@ -192,17 +194,39 @@ public class TestRunner {
         }
     }
     
-    public static void report() {
-        for (Result result : RESULTS) {
-            System.out.println("Algorithm: " + result.getAlgorithmName());
-            System.out.println("Test #: " + result.getTestNumber());
-            System.out.println("Time to run: " + result.getTestDuration());
-            System.out.println("Number of items to choose from: " + result.getNumOfItems());
-            System.out.println("Knapsack Capacity: " + result.getKnapsackCapacity());
-            System.out.println("Selected Items Weight: " + result.getSelectedItemsWeight());
-            System.out.println("Selected Items Value: " + result.getSelectedItemsValue());
-            System.out.println("Selected Items: " + result.getSelectedItemsList());
-            System.out.println("");
-        }
-    }
+    public static void report() {  
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("output.csv");;
+            final String COMMA_DELIMITER = ",";
+            final String NEW_LINE_SEPARATOR = "\n";
+            final String FILE_HEADER = "Test Number,Algorithm Name,N,W,Time to Run";
+            
+            fileWriter.append(FILE_HEADER);
+            fileWriter.append(NEW_LINE_SEPARATOR);
+                
+            for (Result result : RESULTS) {                    
+                fileWriter.append(String.valueOf(result.getTestNumber()));
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(result.getAlgorithmName());
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(String.valueOf(result.getNumOfItems()));
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(String.valueOf(result.getKnapsackCapacity()));
+                fileWriter.append(COMMA_DELIMITER);
+                fileWriter.append(String.valueOf(result.getTestDuration())); 
+                fileWriter.append(NEW_LINE_SEPARATOR);
+            }
+        } catch (IOException e) {
+            System.out.println("An error has occurred saving file.");
+        } finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+
+            } catch (IOException e) {
+                System.out.println("An error has occurred closing file.");
+            }
+        }            
+    } 
 }
