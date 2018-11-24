@@ -6,6 +6,7 @@ public class Result {
     private String algorithmName;
     private int testNumber;
     private long testDuration;
+    private String testName;
     private int numOfItems;
     private int knapsackCapacity;
     private List<Integer> selectedItemsList;
@@ -27,7 +28,15 @@ public class Result {
     public void setTestNumber(int testNumber) {
         this.testNumber = testNumber;
     }
+    
+    public String getTestName() {
+        return testName;
+    }
 
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+    
     public long getTestDuration() {
         return testDuration;
     }

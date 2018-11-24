@@ -5,7 +5,6 @@ import Algorithms.BUKnapsack;
 import Algorithms.TDKnapsack;
 import java.io.FileWriter;
 import java.io.IOException;
-import static java.lang.Integer.MAX_VALUE;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,8 +37,10 @@ public class TestRunner {
     
     public static void run() {
         Result result;
+        String testName;
         
         //Dummy data test
+        testName = "Dummy Data";
         int[] values = {4, 34, 5, 8, 2, 23, 58, 9, 65, 1};
         int[] weights = {100, 50, 20, 43, 56, 87, 8, 54, 45, 76};
         int w = 50, n = 10;
@@ -49,6 +50,7 @@ public class TestRunner {
                 long startTime = System.currentTimeMillis();
                 result = TESTS.get(i).knapsack(values, weights, w, n);
                 long endTime = System.currentTimeMillis();
+                result.setTestName(testName);
                 result.setAlgorithmName(TESTS.get(i).toString());
                 result.setTestNumber(j + 1);
                 result.setNumOfItems(n);
@@ -59,6 +61,7 @@ public class TestRunner {
         }
         
         // Test set with weight as half n
+        testName = "w is half n";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
             w = TESTS_MAX_WEIGHT_HALFN[t];
@@ -75,6 +78,7 @@ public class TestRunner {
                     long startTime = System.currentTimeMillis();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
                     long endTime = System.currentTimeMillis();
+                    result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
                     result.setNumOfItems(n);
@@ -86,6 +90,7 @@ public class TestRunner {
         }
             
         // Test set with weight as same n
+        testName = "w is same as n";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
             w = TESTS_MAX_WEIGHT_SAMEN[t];
@@ -102,6 +107,7 @@ public class TestRunner {
                     long startTime = System.currentTimeMillis();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
                     long endTime = System.currentTimeMillis();
+                    result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
                     result.setNumOfItems(n);
@@ -113,6 +119,7 @@ public class TestRunner {
         }
         
         // Test set with weight as double n
+        testName = "w is double n";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
             w = TESTS_MAX_WEIGHT_DOUBLEN[t];
@@ -129,6 +136,7 @@ public class TestRunner {
                     long startTime = System.currentTimeMillis();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
                     long endTime = System.currentTimeMillis();
+                    result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
                     result.setNumOfItems(n);
@@ -140,6 +148,7 @@ public class TestRunner {
         }
         
         // Test set with weight as 100*n
+        testName = "w is 100n";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
             w = TESTS_MAX_WEIGHT_100N[t];
@@ -156,6 +165,7 @@ public class TestRunner {
                     long startTime = System.currentTimeMillis();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
                     long endTime = System.currentTimeMillis();
+                    result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
                     result.setNumOfItems(n);
@@ -167,6 +177,7 @@ public class TestRunner {
         }
         
         // Test set with weight as 2^n
+        testName = "w is 2^n";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
             w = TESTS_MAX_WEIGHT_EXPN[t];
@@ -183,6 +194,7 @@ public class TestRunner {
                     long startTime = System.currentTimeMillis();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
                     long endTime = System.currentTimeMillis();
+                    result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
                     result.setNumOfItems(n);
@@ -200,12 +212,14 @@ public class TestRunner {
             fileWriter = new FileWriter("output.csv");;
             final String COMMA_DELIMITER = ",";
             final String NEW_LINE_SEPARATOR = "\n";
-            final String FILE_HEADER = "Test Number,Algorithm Name,N,W,Time to Run";
+            final String FILE_HEADER = "Test Name, Test Number,Algorithm Name,N,W,Time to Run";
             
             fileWriter.append(FILE_HEADER);
             fileWriter.append(NEW_LINE_SEPARATOR);
                 
-            for (Result result : RESULTS) {                    
+            for (Result result : RESULTS) {       
+                fileWriter.append(result.getTestName());
+                fileWriter.append(COMMA_DELIMITER);
                 fileWriter.append(String.valueOf(result.getTestNumber()));
                 fileWriter.append(COMMA_DELIMITER);
                 fileWriter.append(result.getAlgorithmName());
