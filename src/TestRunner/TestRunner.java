@@ -47,9 +47,9 @@ public class TestRunner {
         
         for (int i = 0; i < TESTS.size(); i++) {
             for (int j = 0; j < NUM_OF_RUNS; j++) {
-                long startTime = System.currentTimeMillis();
+                long startTime = System.nanoTime();
                 result = TESTS.get(i).knapsack(values, weights, w, n);
-                long endTime = System.currentTimeMillis();
+                long endTime = System.nanoTime();
                 result.setTestName(testName);
                 result.setAlgorithmName(TESTS.get(i).toString());
                 result.setTestNumber(j + 1);
@@ -75,9 +75,9 @@ public class TestRunner {
             
             for (int i = 0; i < TESTS.size(); i++) {
                 for (int j = 0; j < NUM_OF_RUNS; j++) {
-                    long startTime = System.currentTimeMillis();
+                    long startTime = System.nanoTime();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
-                    long endTime = System.currentTimeMillis();
+                    long endTime = System.nanoTime();
                     result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
@@ -104,9 +104,9 @@ public class TestRunner {
             
             for (int i = 0; i < TESTS.size(); i++) {
                 for (int j = 0; j < NUM_OF_RUNS; j++) {
-                    long startTime = System.currentTimeMillis();
+                    long startTime = System.nanoTime();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
-                    long endTime = System.currentTimeMillis();
+                    long endTime = System.nanoTime();
                     result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
@@ -133,9 +133,9 @@ public class TestRunner {
             
             for (int i = 0; i < TESTS.size(); i++) {
                 for (int j = 0; j < NUM_OF_RUNS; j++) {
-                    long startTime = System.currentTimeMillis();
+                    long startTime = System.nanoTime();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
-                    long endTime = System.currentTimeMillis();
+                    long endTime = System.nanoTime();
                     result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
@@ -162,9 +162,9 @@ public class TestRunner {
             
             for (int i = 0; i < TESTS.size(); i++) {
                 for (int j = 0; j < NUM_OF_RUNS; j++) {
-                    long startTime = System.currentTimeMillis();
+                    long startTime = System.nanoTime();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
-                    long endTime = System.currentTimeMillis();
+                    long endTime = System.nanoTime();
                     result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
@@ -191,9 +191,9 @@ public class TestRunner {
             
             for (int i = 0; i < TESTS.size(); i++) {
                 for (int j = 0; j < NUM_OF_RUNS; j++) {
-                    long startTime = System.currentTimeMillis();
+                    long startTime = System.nanoTime();
                     result = TESTS.get(i).knapsack(values, weights, w, n);
-                    long endTime = System.currentTimeMillis();
+                    long endTime = System.nanoTime();
                     result.setTestName(testName);
                     result.setAlgorithmName(TESTS.get(i).toString());
                     result.setTestNumber(j + 1);
@@ -209,7 +209,7 @@ public class TestRunner {
     public static void report() {  
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("output.csv");;
+            fileWriter = new FileWriter("output.csv");
             final String COMMA_DELIMITER = ",";
             final String NEW_LINE_SEPARATOR = "\n";
             final String FILE_HEADER = "Test Name, Test Number,Algorithm Name,N,W,Time to Run";
