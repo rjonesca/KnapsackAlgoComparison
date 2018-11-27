@@ -13,13 +13,39 @@ public class TestRunner {
     private static final List<ITestable> TESTS = new ArrayList<>();
     private static final List<Result> RESULTS = new ArrayList<>();
     
+//    private static final int NUM_DATA_POINTS = 5;
+//    private static final int TESTS_CONSTANT_N = 10;
+//    private static final int TESTS_CONSTANT_W = 65536;
+//    private static final int[] TESTS_NUM_ITEMS = {4, 8, 12, 16, 20};
+//    private static final int[] TESTS_MAX_WEIGHT_1000N = {4000, 8000, 12000, 16000, 20000};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPNm2 = {4, 64, 1024, 16384, 262144};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPN = {16, 256, 4096, 65536, 1048576};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPNp2 = {64, 1024, 16384, 262144, 4194304};
+//    private static final int[] TESTS_MAX_WEIGHT_MIX = {64, 256, 1024, 4096, 16384};
+    
+//    private static final int NUM_DATA_POINTS = 5;
+//    private static final int TESTS_CONSTANT_N = 7;
+//    private static final int TESTS_CONSTANT_W = 128;
+//    private static final int[] TESTS_NUM_ITEMS = {5, 6, 7, 8, 9};
+//    private static final int[] TESTS_MAX_WEIGHT_100N = {500, 600, 700, 800, 900};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPNm2 = {8, 16, 32, 64, 128};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPNm1 = {16, 32, 64, 128, 256};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPN = {32, 64, 128, 256, 512};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPNp1 = {64, 128, 256, 512, 1024};
+//    private static final int[] TESTS_MAX_WEIGHT_EXPNp2 = {128, 256, 512, 1024, 2048};
+//    private static final int[] TESTS_MAX_WEIGHT_MIX = {32, 64, 256, 512, 1024};
+    
     private static final int NUM_DATA_POINTS = 5;
-    private static final int[] TESTS_NUM_ITEMS = {10, 15, 20, 25, 30};
-    private static final int[] TESTS_MAX_WEIGHT_HALFN = {5, 7, 10, 12, 15};
-    private static final int[] TESTS_MAX_WEIGHT_SAMEN = {10, 15, 20, 25, 30};
-    private static final int[] TESTS_MAX_WEIGHT_DOUBLEN = {20, 30, 40, 50, 60};
-    private static final int[] TESTS_MAX_WEIGHT_100N = {1000, 1500, 2000, 2500, 3000};
-    private static final int[] TESTS_MAX_WEIGHT_EXPN = {1024, 32768, 1048576, 33554432, 1073741824};
+    private static final int TESTS_CONSTANT_N = 11;
+    private static final int TESTS_CONSTANT_W = 2048;
+    private static final int[] TESTS_NUM_ITEMS = {10, 11, 12, 13, 14};
+    private static final int[] TESTS_MAX_WEIGHT_100N = {500, 600, 700, 800, 900};
+    private static final int[] TESTS_MAX_WEIGHT_EXPNm2 = {256, 512, 1024, 2048, 4096};
+    private static final int[] TESTS_MAX_WEIGHT_EXPNm1 = {512, 1024, 2048, 4096, 8192};
+    private static final int[] TESTS_MAX_WEIGHT_EXPN = {1024, 2048, 4096, 8192, 16384};
+    private static final int[] TESTS_MAX_WEIGHT_EXPNp1 = {2048, 4096, 8192, 16384, 32768};
+    private static final int[] TESTS_MAX_WEIGHT_EXPNp2 = {4096, 8192, 16384, 32768, 65536};
+    private static final int[] TESTS_MAX_WEIGHT_MIX = {512, 1024, 2048, 4096, 16384};
     
     // Four runs so we can skip the "cold" run when doing the analysis
     private static final int NUM_OF_RUNS = 4;
@@ -60,40 +86,10 @@ public class TestRunner {
             }
         }
         
-        // Test set with weight as half n
-        testName = "w is half n";
+        testName = "w = 2^(n-2)";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
-            w = TESTS_MAX_WEIGHT_HALFN[t];
-            
-            values = new int[n];
-            weights = new int[n];
-            for (int k = 0; k < n; k++) {
-                values[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
-                weights[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
-            }
-            
-            for (int i = 0; i < TESTS.size(); i++) {
-                for (int j = 0; j < NUM_OF_RUNS; j++) {
-                    long startTime = System.nanoTime();
-                    result = TESTS.get(i).knapsack(values, weights, w, n);
-                    long endTime = System.nanoTime();
-                    result.setTestName(testName);
-                    result.setAlgorithmName(TESTS.get(i).toString());
-                    result.setTestNumber(j + 1);
-                    result.setNumOfItems(n);
-                    result.setKnapsackCapacity(w);
-                    result.setTestDuration(endTime - startTime);
-                    RESULTS.add(result);
-                }
-            }
-        }
-            
-        // Test set with weight as same n
-        testName = "w is same as n";
-        for (int t = 0; t < NUM_DATA_POINTS; t++){
-            n = TESTS_NUM_ITEMS[t];
-            w = TESTS_MAX_WEIGHT_SAMEN[t];
+            w = TESTS_MAX_WEIGHT_EXPNm2[t];
             
             values = new int[n];
             weights = new int[n];
@@ -118,11 +114,10 @@ public class TestRunner {
             }
         }
         
-        // Test set with weight as double n
-        testName = "w is double n";
+        testName = "w = 2^(n-1)";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
-            w = TESTS_MAX_WEIGHT_DOUBLEN[t];
+            w = TESTS_MAX_WEIGHT_EXPNm1[t];
             
             values = new int[n];
             weights = new int[n];
@@ -146,8 +141,91 @@ public class TestRunner {
                 }
             }
         }
-        
-        // Test set with weight as 100*n
+
+        testName = "w = 2^n";
+        for (int t = 0; t < NUM_DATA_POINTS; t++){
+            n = TESTS_NUM_ITEMS[t];
+            w = TESTS_MAX_WEIGHT_EXPN[t];
+            
+            values = new int[n];
+            weights = new int[n];
+            for (int k = 0; k < n; k++) {
+                values[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+                weights[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+            }
+            
+            for (int i = 0; i < TESTS.size(); i++) {
+                for (int j = 0; j < NUM_OF_RUNS; j++) {
+                    long startTime = System.nanoTime();
+                    result = TESTS.get(i).knapsack(values, weights, w, n);
+                    long endTime = System.nanoTime();
+                    result.setTestName(testName);
+                    result.setAlgorithmName(TESTS.get(i).toString());
+                    result.setTestNumber(j + 1);
+                    result.setNumOfItems(n);
+                    result.setKnapsackCapacity(w);
+                    result.setTestDuration(endTime - startTime);
+                    RESULTS.add(result);
+                }
+            }
+        }
+
+        testName = "w = 2^(n+1)";
+        for (int t = 0; t < NUM_DATA_POINTS; t++){
+            n = TESTS_NUM_ITEMS[t];
+            w = TESTS_MAX_WEIGHT_EXPNp1[t];
+            
+            values = new int[n];
+            weights = new int[n];
+            for (int k = 0; k < n; k++) {
+                values[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+                weights[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+            }
+            
+            for (int i = 0; i < TESTS.size(); i++) {
+                for (int j = 0; j < NUM_OF_RUNS; j++) {
+                    long startTime = System.nanoTime();
+                    result = TESTS.get(i).knapsack(values, weights, w, n);
+                    long endTime = System.nanoTime();
+                    result.setTestName(testName);
+                    result.setAlgorithmName(TESTS.get(i).toString());
+                    result.setTestNumber(j + 1);
+                    result.setNumOfItems(n);
+                    result.setKnapsackCapacity(w);
+                    result.setTestDuration(endTime - startTime);
+                    RESULTS.add(result);
+                }
+            }
+        }
+
+        testName = "w = 2^(n+2)";
+        for (int t = 0; t < NUM_DATA_POINTS; t++){
+            n = TESTS_NUM_ITEMS[t];
+            w = TESTS_MAX_WEIGHT_EXPNp2[t];
+            
+            values = new int[n];
+            weights = new int[n];
+            for (int k = 0; k < n; k++) {
+                values[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+                weights[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+            }
+            
+            for (int i = 0; i < TESTS.size(); i++) {
+                for (int j = 0; j < NUM_OF_RUNS; j++) {
+                    long startTime = System.nanoTime();
+                    result = TESTS.get(i).knapsack(values, weights, w, n);
+                    long endTime = System.nanoTime();
+                    result.setTestName(testName);
+                    result.setAlgorithmName(TESTS.get(i).toString());
+                    result.setTestNumber(j + 1);
+                    result.setNumOfItems(n);
+                    result.setKnapsackCapacity(w);
+                    result.setTestDuration(endTime - startTime);
+                    RESULTS.add(result);
+                }
+            }
+        }
+
         testName = "w is 100n";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
@@ -176,11 +254,39 @@ public class TestRunner {
             }
         }
         
-        // Test set with weight as 2^n
-        testName = "w is 2^n";
+        
+        testName = "w is constant";
         for (int t = 0; t < NUM_DATA_POINTS; t++){
             n = TESTS_NUM_ITEMS[t];
-            w = TESTS_MAX_WEIGHT_EXPN[t];
+            w = TESTS_CONSTANT_W;
+            
+            values = new int[n];
+            weights = new int[n];
+            for (int k = 0; k < n; k++) {
+                values[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+                weights[k] = ThreadLocalRandom.current().nextInt(0, w + 1);
+            }
+            
+            for (int i = 0; i < TESTS.size(); i++) {
+                for (int j = 0; j < NUM_OF_RUNS; j++) {
+                    long startTime = System.nanoTime();
+                    result = TESTS.get(i).knapsack(values, weights, w, n);
+                    long endTime = System.nanoTime();
+                    result.setTestName(testName);
+                    result.setAlgorithmName(TESTS.get(i).toString());
+                    result.setTestNumber(j + 1);
+                    result.setNumOfItems(n);
+                    result.setKnapsackCapacity(w);
+                    result.setTestDuration(endTime - startTime);
+                    RESULTS.add(result);
+                }
+            }
+        }
+        
+        testName = "n is constant";
+        for (int t = 0; t < NUM_DATA_POINTS; t++){
+            n = TESTS_CONSTANT_N;
+            w = TESTS_MAX_WEIGHT_MIX[t];
             
             values = new int[n];
             weights = new int[n];
@@ -209,7 +315,7 @@ public class TestRunner {
     public static void report() {  
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("output.csv");
+            fileWriter = new FileWriter("output2.csv");
             final String COMMA_DELIMITER = ",";
             final String NEW_LINE_SEPARATOR = "\n";
             final String FILE_HEADER = "Test Name, Test Number,Algorithm Name,N,W,Time to Run";
