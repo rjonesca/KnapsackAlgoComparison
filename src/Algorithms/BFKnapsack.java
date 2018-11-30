@@ -4,6 +4,9 @@ import TestRunner.ITestable;
 import TestRunner.Result;
 import java.util.ArrayList;
 
+/**
+ * Implements 0/1 Knapsack using Brute Force
+ */
 public class BFKnapsack implements ITestable {
 
     @Override
@@ -13,11 +16,16 @@ public class BFKnapsack implements ITestable {
         ArrayList<Integer> temp_item_list = new ArrayList<>();
         Result result = new Result();
         
+        //Loop over 2 ^ N combinations, store max weight, value and items 
         for (int i = 0; i < (Math.pow(2, values.length)); i++) {
            temp_weight_sum = 0;
            temp_value_sum = 0;
            
+           //We look at the binary representation of the int store in i each iteration and treat each
+           //bit as a bucket. We are only concerned about the LSB's from 0 to length - 1.
            for (int j = 0; j < values.length; j++) {
+               //We shift the bits of i for each j value and if the bit is 1, we "put" that item
+               //In the knapsack. At this point, we aren't concerned about over capacity.
                if (((i >> j) & 1) == 1) {
                    temp_weight_sum += weights[j];
                    temp_value_sum += values[j];
@@ -25,6 +33,10 @@ public class BFKnapsack implements ITestable {
                }
            }
            
+           //Here is where we care about capacity. If the temp weight is greater than W,
+           //it isn't a valid combination and we move to the next combination. If it is a valid one,
+           //we compare it with the previously store max value. If the new value is greater, we update our 
+           //current max. We are also keeping track of the current items list and discarding as necessary.
            if (temp_weight_sum <= w && temp_value_sum > max_value) {
                max_value = temp_value_sum;
                result.setSelectedItemsList((ArrayList<Integer>)temp_item_list.clone());
